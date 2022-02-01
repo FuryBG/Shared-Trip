@@ -13,7 +13,7 @@ async function createTrip(data) {
 };
 
 async function getById(id) {
-    const current = await Trip.findOne({_id: id}).populate("buddies");
+    const current = await Trip.findOne({_id: id}).populate("buddies").lean();
     return current;
 };
 
@@ -28,6 +28,13 @@ async function deleteTrip(id) {
     await Trip.deleteOne({_id: id});
 };
 
+async function addBuddie(id, userId) {
+    let currItem = await Trip.findById(id);
+    currItem.buddies.push(userId);
+    currItem.seats -= 1;
+    await currItem.save();
+};
+
 
 
 module.exports = {
@@ -36,4 +43,5 @@ module.exports = {
     getById,
     editTrip,
     deleteTrip,
+    addBuddie
 };

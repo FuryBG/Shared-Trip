@@ -10,10 +10,18 @@ router.get("/all", async(req, res) => {
     res.render("shared-trips.hbs", {allTrips});
 });
 
+router.get("/join/:id", async(req, res) => {
+    await req.storage.addBuddie(req.params.id, req.user._id);
+    res.redirect(`/details/${req.params.id}`);
+});
+
 router.get("/details/:id", async(req, res) => {
     const currItem = await req.storage.getById(req.params.id);
     const isJoined = currItem.buddies.find(x => x._id == req.user._id);
-    console.log(isJoined);
+    if(currItem.buddies.length > 0) {
+        currItem.isBuddies = true;
+        currItem.allBuddies = currItem.buddies.map(x => x.email);
+    };
 
     if(currItem.owner == req.user._id) {
         currItem.isOwner = true;

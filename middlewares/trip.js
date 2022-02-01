@@ -5,7 +5,8 @@ module.exports = () => {
         req.storage = {
             create: tripService.createTrip,
             getAll: tripService.getAll,
-            getById: tripService.getById
+            getById: tripService.getById,
+            addBuddie: tripService.addBuddie
         };
 
         next();
