@@ -6,6 +6,8 @@ const { TOKEN_SECRET, COOKIE_NAME } = require("../config");
 module.exports = () => (req, res, next) => {
         if(parseToken(req, res)) {
         req.auth = {
+            addTrip: userService.addTrip,
+            getUserById: userService.getUserById,
             register,
             login,
             logout

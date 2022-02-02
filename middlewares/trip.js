@@ -6,7 +6,8 @@ module.exports = () => {
             create: tripService.createTrip,
             getAll: tripService.getAll,
             getById: tripService.getById,
-            addBuddie: tripService.addBuddie
+            addBuddie: tripService.addBuddie,
+            edit: tripService.editTrip
         };
 
         next();

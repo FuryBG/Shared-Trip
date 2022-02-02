@@ -16,7 +16,20 @@ async function getUserByEmail(email) {
     return currUser;
 };
 
+async function addTrip(id, tripId) {
+    let currentUser = await User.findById(id);
+    currentUser.trips.push(tripId);
+    currentUser.save();
+};
+
+async function getUserById(id) {
+    let currUser = await User.findById(id).populate("trips").lean();
+    return currUser;
+};
+
 module.exports = {
     createUser,
-    getUserByEmail
+    getUserByEmail,
+    addTrip,
+    getUserById
 };
